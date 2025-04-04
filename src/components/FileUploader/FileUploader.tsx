@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { PaymentData } from '../../types'
 import styles from './FileUploader.module.scss'
+import { categoryRussian } from '../../shared/constants/categoryRussian'
 
 interface FileUploaderProps {
   onDataLoaded: (data: PaymentData) => void
@@ -66,12 +67,11 @@ const validateData = (
 
       if (
         typeof payment.category !== 'number' ||
-        payment.category < 1 ||
-        payment.category > 22
+        !Object.hasOwn(categoryRussian, String(payment.category))
       ) {
         return {
           isValid: false,
-          error: `Неверная категория: ${payment.category}. Доступны категории от 1 до 22`,
+          error: `Неверная категория: ${payment.category}. Доступны категории от 1 до 23`,
         }
       }
 
