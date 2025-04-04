@@ -1,0 +1,15 @@
+.Button {
+  font-family:
+    'Segoe UI Emoji', system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  padding: 0.75rem 1.5rem;
+  background-color: var(--c-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  font-size: 1.2rem;
+}

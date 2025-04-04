@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dayCard {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+
+  h3 {
+    color: #1f2937;
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.dayTotal {
+  color: #2196f3;
+  font-weight: 500;
+}
+
+.payments {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f9fafb;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
+}
+
+.paymentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paymentName {
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.paymentCategory {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.paymentValue {
+  color: #1f2937;
+  font-weight: 500;
+}

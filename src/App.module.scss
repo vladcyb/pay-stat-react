@@ -1,0 +1,27 @@
+.app {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+
+  h1 {
+    color: #1f2937;
+    font-size: 32px;
+    font-weight: 600;
+  }
+}
+
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.guides {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
