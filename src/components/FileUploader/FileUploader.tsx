@@ -227,7 +227,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
     >
       <div className={styles.uploadOptions}>
         <div className={styles.option}>
-          <p>Перетащите JSON файл с данными в любое место на странице</p>
+          <p>Перетащите файл в формате JSON</p>
         </div>
 
         <div className={styles.divider}>ИЛИ</div>

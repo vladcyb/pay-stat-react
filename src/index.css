@@ -11,14 +11,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
-  color: #1f2937;
+  color: var(--c-text);
 
   /* colors */
   --c-background: #f8fafc;
-  --c-text: #1e293b;
+  --c-text: #0a003b;
+  --c-text-secondary: #666;
   --c-border: #e2e8f0;
   --c-error: #ef4444;
   --c-primary: #3d7700;
+  --c-code-bg: #144a64;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
@@ -34,7 +36,6 @@
 }
 
 body {
-  margin: 0;
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--c-background);

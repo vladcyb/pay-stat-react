@@ -53,7 +53,7 @@ export const Statistics = ({ data }: StatisticsProps) => {
 
   return (
     <div className={styles.container}>
-      <h2>Статистика расходов</h2>
+      <h2 className={styles.title}>{data.title}</h2>
       <div className={styles.totalSpent}>
         <h3>Общая сумма расходов</h3>
         <p>{totalSpent}</p>

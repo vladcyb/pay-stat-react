@@ -55,14 +55,12 @@
 }
 
 .categoryName {
-  margin: 0;
-  color: #333;
   font-size: 16px;
 }
 
 .categoryDescription {
   margin: 0;
-  color: #666;
+  color: var(--c-text-secondary);
   font-size: 14px;
 }
 
@@ -72,7 +70,6 @@
   border-top: 1px solid #eee;
 
   h3 {
-    color: #333;
     margin-bottom: 15px;
   }
 
@@ -83,7 +80,7 @@
   }
 
   li {
-    color: #666;
+    color: var(--c-text-secondary);
     margin-bottom: 10px;
     padding-left: 20px;
     position: relative;
