@@ -58,7 +58,11 @@ const validateData = (
 
     // Проверка каждого платежа
     for (const payment of payments) {
-      if (!payment.category || !payment.value || !payment.name) {
+      if (
+        !Object.hasOwn(payment, 'category') ||
+        !Object.hasOwn(payment, 'value') ||
+        !Object.hasOwn(payment, 'name')
+      ) {
         return {
           isValid: false,
           error: 'Каждый платеж должен содержать поля category, value и name',
