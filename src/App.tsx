@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { FileUploader } from './components/FileUploader/FileUploader'
 import { Statistics } from './components/Statistics/Statistics'
-import { FormatGuide } from './components/Guides/FormatGuide'
-import { CategoriesGuide } from './components/Guides/CategoriesGuide'
 import { PaymentData } from './types'
+import { FormatGuide } from './components/guides/FormatGuide'
+import { CategoriesGuide } from './components/guides/CategoriesGuide'
 
 import styles from './App.module.scss'
 
@@ -16,15 +16,14 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <header className={styles.header}>
-        <h1>Анализ расходов</h1>
+      <header className={styles.app__header}>
+        <h1 className={styles.app__h1}>Анализ расходов</h1>
       </header>
-
-      <main className={styles.main}>
+      <main className={styles.app__main}>
         {!paymentData ? (
           <>
             <FileUploader onDataLoaded={handleDataLoaded} />
-            <div className={styles.guides}>
+            <div className={styles.app__guides}>
               <FormatGuide />
               <CategoriesGuide />
             </div>

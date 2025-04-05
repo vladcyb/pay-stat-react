@@ -3,23 +3,23 @@
   padding: 20px;
 }
 
-.header {
+.app__header {
   text-align: center;
   margin-bottom: 40px;
-
-  h1 {
-    color: var(--c-text);
-    font-size: 32px;
-    font-weight: 600;
-  }
 }
 
-.main {
+.app__h1 {
+  color: var(--c-text);
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.app__main {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.guides {
+.app__guides {
   display: flex;
   flex-direction: column;
   gap: 40px;

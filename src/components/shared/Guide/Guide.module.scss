@@ -1,0 +1,50 @@
+.Guide {
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.Guide__h2 {
+  color: var(--c-text);
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.Guide__title {
+  color: var(--c-text);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.Guide__subtitle {
+  color: var(--c-text-secondary);
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.Guide__rules {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.Guide__rulesList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Guide__rulesListItem {
+  color: #4b5563;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+
+  &:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #2196f3;
+  }
+}

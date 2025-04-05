@@ -219,7 +219,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
   )
 
   return (
-    <div
+    <section
       className={`${styles.dropZone} ${isDragging ? styles.dragging : ''}`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
@@ -260,6 +260,6 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
