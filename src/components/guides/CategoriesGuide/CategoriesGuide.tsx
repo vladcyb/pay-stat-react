@@ -12,9 +12,9 @@ export const CategoriesGuide = () => (
       { id: 2, content: 'Категория должна быть числом и быть в списке выше' },
     ]}
   >
-    <div className={styles.categoriesGuide__categories}>
+    <div className={styles.CategoriesGuide__categories}>
       {Object.entries(categoryRussian).map(([categoryId, categoryName]) => (
-        <div key={categoryId} className={styles.categoriesGuide__category}>
+        <div key={categoryId} className={styles.CategoriesGuide__category}>
           <div className={styles.categoriesGuide__categoryHeader}>
             <div>{categoryId}</div>
             <strong className={styles.categoriesGuide__categoryName}>
