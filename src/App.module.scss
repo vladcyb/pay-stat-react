@@ -1,25 +1,25 @@
-.app {
+.App {
   min-height: 100vh;
   padding: 20px;
 }
 
-.app__header {
+.App__header {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.app__h1 {
+.App__title {
   color: var(--c-text);
   font-size: 32px;
   font-weight: 600;
 }
 
-.app__main {
+.App__main {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.app__guides {
+.App__guides {
   display: flex;
   flex-direction: column;
   gap: 40px;

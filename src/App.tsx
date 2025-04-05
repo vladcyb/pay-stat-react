@@ -15,15 +15,15 @@ function App() {
   }
 
   return (
-    <div className={styles.app}>
-      <header className={styles.app__header}>
-        <h1 className={styles.app__h1}>Анализ расходов</h1>
+    <div className={styles.App}>
+      <header className={styles.App__header}>
+        <h1 className={styles.App__title}>Анализ расходов</h1>
       </header>
-      <main className={styles.app__main}>
+      <main className={styles.App__main}>
         {!paymentData ? (
           <>
             <FileUploader onDataLoaded={handleDataLoaded} />
-            <div className={styles.app__guides}>
+            <div className={styles.App__guides}>
               <FormatGuide />
               <CategoriesGuide />
             </div>
