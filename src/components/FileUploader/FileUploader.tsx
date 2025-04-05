@@ -141,25 +141,22 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
     [handleFileUpload]
   )
 
-  const handleDragOver = useCallback((e: React.DragEvent) => {
+  const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault()
     setIsDragging(true)
-  }, [])
+  }
 
-  const handleDragLeave = useCallback((e: React.DragEvent) => {
+  const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault()
     setIsDragging(false)
-  }, [])
+  }
 
-  const handleFileInput = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0]
-      if (file) {
-        handleFileUpload(file)
-      }
-    },
-    [handleFileUpload]
-  )
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      handleFileUpload(file)
+    }
+  }
 
   const isValidUrl = (url: string) => {
     try {
@@ -170,82 +167,82 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
     }
   }
 
-  const handleUrlSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault()
-      if (!jsonUrl) return
+  const handleUrlSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!jsonUrl) return
 
-      if (!isValidUrl(jsonUrl)) {
-        alert('Пожалуйста, введите корректный URL')
-        return
+    if (!isValidUrl(jsonUrl)) {
+      alert('Пожалуйста, введите корректный URL')
+      return
+    }
+
+    try {
+      const response = await fetch(jsonUrl, {
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      try {
-        const response = await fetch(jsonUrl, {
-          mode: 'cors',
-          headers: {
-            Accept: 'application/json',
-          },
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const data = await response.json()
-        const validatedData = processData(data)
-        onDataLoaded(validatedData)
-      } catch (error) {
-        console.error('Error fetching JSON from URL:', error)
-        if (
-          error instanceof TypeError &&
-          error.message.includes('Failed to fetch')
-        ) {
-          alert(
-            'Не удалось загрузить данные. Возможные причины:\n' +
-              '- URL недоступен\n' +
-              '- Сервер не поддерживает CORS\n' +
-              '- Проблемы с сетевым подключением'
-          )
-        } else {
-          alert(
-            'Ошибка при загрузке данных по URL: ' +
-              (error instanceof Error ? error.message : 'Неизвестная ошибка')
-          )
-        }
+      const data = await response.json()
+      const validatedData = processData(data)
+      onDataLoaded(validatedData)
+    } catch (error) {
+      console.error('Error fetching JSON from URL:', error)
+      if (
+        error instanceof TypeError &&
+        error.message.includes('Failed to fetch')
+      ) {
+        alert(
+          'Не удалось загрузить данные. Возможные причины:\n' +
+            '- URL недоступен\n' +
+            '- Сервер не поддерживает CORS\n' +
+            '- Проблемы с сетевым подключением'
+        )
+      } else {
+        alert(
+          'Ошибка при загрузке данных по URL: ' +
+            (error instanceof Error ? error.message : 'Неизвестная ошибка')
+        )
       }
-    },
-    [jsonUrl, onDataLoaded, processData]
-  )
+    }
+  }
 
   return (
     <section
-      className={`${styles.dropZone} ${isDragging ? styles.dragging : ''}`}
+      className={`${styles.FileUploader} ${isDragging ? styles.FileUploader_dragging : ''}`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
-      <div className={styles.uploadOptions}>
-        <div className={styles.option}>
+      <div className={styles.FileUploader__options}>
+        <div className={styles.FileUploader__option}>
           <p>Перетащите файл в формате JSON</p>
         </div>
 
-        <div className={styles.divider}>ИЛИ</div>
+        <div className={styles.FileUploader__divider}>ИЛИ</div>
 
-        <div className={styles.option}>
+        <div className={styles.FileUploader__option}>
           <input
             type="file"
             id="file-input"
             accept=".json"
             onChange={handleFileInput}
-            className={styles.fileInput}
+            className={styles.FileUploader__input}
           />
-          <label htmlFor="file-input" className={styles.fileInputLabel}>
+          <label
+            htmlFor="file-input"
+            className={styles.FileUploader__inputLabel}
+          >
             Выбрать файл
           </label>
         </div>
 
-        <div className={styles.divider}>ИЛИ</div>
+        <div className={styles.FileUploader__divider}>ИЛИ</div>
 
         <div className={styles.option}>
           <p>Введите ссылку на JSON в текстовое поле и нажмите Enter</p>
@@ -254,7 +251,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
               type="text"
               value={jsonUrl}
               onChange={(e) => setJsonUrl(e.target.value)}
-              className={styles.urlInput}
+              className={styles.FileUploader__urlInput}
               placeholder="https://example.com/data.json"
             />
           </form>

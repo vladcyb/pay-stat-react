@@ -1,4 +1,4 @@
-.dropZone {
+.FileUploader {
   width: 100%;
   min-height: 200px;
   display: flex;
@@ -9,15 +9,15 @@
   padding: 2rem 0;
   border-radius: 10px;
   border: 4px dashed var(--c-border);
-
-  &.dragging {
-    background-color: rgba(33, 150, 243, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 4px dashed var(--c-text-secondary);
-  }
 }
 
-.uploadOptions {
+.FileUploader_dragging {
+  background-color: rgba(33, 150, 243, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 4px dashed var(--c-text-secondary);
+}
+
+.FileUploader__options {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,7 @@
   text-align: center;
 }
 
-.option {
+.FileUploader__option {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -35,27 +35,28 @@
   gap: 10px;
 }
 
-.fileInput {
+.FileUploader__input {
   display: none;
 }
 
-.fileInputLabel {
+.FileUploader__inputLabel {
   display: inline-block;
   padding: 8px 16px;
-  background-color: transparent;
-  color: var(--c-text);
+  background-color: var(--c-code-bg);
+  color: white;
   border: 1px solid #d1d5db;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 14px;
 
-  &:hover {
+  &:active {
     background-color: #f3f4f6;
+    color: var(--c-code-bg);
   }
 }
 
-.urlInput {
+.FileUploader__urlInput {
   width: 500px;
   padding: 12px 12px;
   border: 1px solid #d1d5db;
@@ -73,7 +74,7 @@
   }
 }
 
-.divider {
+.FileUploader__divider {
   color: #6b7280;
   font-size: 14px;
   margin: 10px 0;
