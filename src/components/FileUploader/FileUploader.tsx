@@ -65,10 +65,7 @@ const validateData = (
         }
       }
 
-      if (
-        typeof payment.category !== 'number' ||
-        !Object.hasOwn(categoryRussian, String(payment.category))
-      ) {
+      if (!Object.keys(categoryRussian).includes(String(payment.category))) {
         return {
           isValid: false,
           error: `Неверная категория: ${payment.category}. Доступны категории от 1 до 23`,
