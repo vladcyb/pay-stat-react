@@ -39,6 +39,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
         )
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [processData]
   )
 

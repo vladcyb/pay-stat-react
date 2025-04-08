@@ -62,6 +62,7 @@ export const useData = () => {
     } else {
       setIsLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sourceUrl])
 
   return {
