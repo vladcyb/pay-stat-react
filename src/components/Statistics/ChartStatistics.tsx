@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import {
   Chart as ChartJS,
-  ArcElement,
   Tooltip,
   Legend,
   CategoryScale,
@@ -11,34 +10,31 @@ import {
   TooltipItem,
   Scale,
 } from 'chart.js'
-import { Pie, Bar } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import { PaymentData } from '../../types'
 import { categoryRussian } from '../../shared/constants/categoryRussian'
 import styles from './ChartStatistics.module.scss'
+import { formatNumber } from '../../shared/lib/formatNumber.ts'
 
-ChartJS.register(
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title
-)
+ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title)
 
 interface ChartStatisticsProps {
   data: PaymentData
 }
 
-const formatNumber = (num: number): string => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+const formatDate = (dateStr: string) => {
+  const year = dateStr.slice(0, 4)
+  const month = dateStr.slice(4, 6)
+  const day = dateStr.slice(6, 8)
+  return `${day}.${month}.${year}`
 }
 
 export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
   const [hiddenCategories, setHiddenCategories] = useState<number[]>([])
+  const [regexFilter, setRegexFilter] = useState('')
 
-  const { pieData, barData, allCategories } = useMemo(() => {
-    // Подготавливаем данные для круговой диаграммы по категориям
+  const { barData, allCategories, filteredTotal } = useMemo(() => {
+    // Подготавливаем данные для столбчатой диаграммы по категориям
     const categoryTotals: Record<number, number> = {}
     const backgroundColors = [
       '#FF6384',
@@ -65,20 +61,32 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
       '#2980B9',
     ]
 
-    // Подготавливаем данные для столбчатой диаграммы по дням
-    const dailyTotals: Record<string, number> = {}
+    // Фильтруем даты по регулярному выражению
+    let filteredDates = Object.keys(data.payments)
+    if (regexFilter) {
+      try {
+        const regex = new RegExp(`^${regexFilter}$`, 'i')
+        filteredDates = filteredDates.filter((date) =>
+          regex.test(formatDate(date))
+        )
+      } catch (error) {
+        console.error('Invalid regex pattern:', error)
+      }
+    }
 
-    Object.entries(data.payments).forEach(([date, payments]) => {
+    let totalFilteredExpenses = 0
+
+    // Собираем данные по категориям
+    filteredDates.forEach((date) => {
+      const payments = data.payments[date]
       const visiblePayments = payments.filter(
         (payment) => !hiddenCategories.includes(payment.category)
       )
-      dailyTotals[date] = visiblePayments.reduce((sum, p) => sum + p.value, 0)
 
-      payments.forEach((payment) => {
-        if (!hiddenCategories.includes(payment.category)) {
-          categoryTotals[payment.category] =
-            (categoryTotals[payment.category] || 0) + payment.value
-        }
+      visiblePayments.forEach((payment) => {
+        categoryTotals[payment.category] =
+          (categoryTotals[payment.category] || 0) + payment.value
+        totalFilteredExpenses += payment.value
       })
     })
 
@@ -93,42 +101,29 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
       categoryColors.set(category, backgroundColors[index])
     })
 
-    const pieChartData = {
+    // Создаем данные для столбчатой диаграммы по категориям
+    const barChartData = {
       labels: visibleCategories.map(
         (cat) => categoryRussian[cat as keyof typeof categoryRussian]
       ),
       datasets: [
         {
+          label: 'Расходы по категориям',
           data: visibleCategories.map((cat) => categoryTotals[cat]),
           backgroundColor: visibleCategories.map((cat) =>
             categoryColors.get(cat)
           ),
-          borderWidth: 1,
-        },
-      ],
-    }
-
-    // Сортируем дни по возрастанию
-    const sortedDates = Object.keys(dailyTotals).sort()
-    const barChartData = {
-      labels: sortedDates.map(
-        (date) => `${date.slice(6, 8)}.${date.slice(4, 6)}`
-      ),
-      datasets: [
-        {
-          label: 'Расходы за день',
-          data: sortedDates.map((date) => dailyTotals[date]),
-          backgroundColor: '#2196f3',
           borderRadius: 4,
         },
       ],
     }
 
-    // Получаем список всех категорий с их суммами
+    // Получаем список всех категорий с их суммами для отображения в управлении категориями
+    // Теперь учитываем только отфильтрованные даты
     const allCats = Object.entries(
-      Object.values(data.payments).reduce(
-        (acc, payments) => {
-          payments.forEach((payment) => {
+      filteredDates.reduce(
+        (acc, date) => {
+          data.payments[date].forEach((payment) => {
             acc[payment.category] = (acc[payment.category] || 0) + payment.value
           })
           return acc
@@ -144,40 +139,11 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
       }))
 
     return {
-      pieData: pieChartData,
       barData: barChartData,
       allCategories: allCats,
+      filteredTotal: totalFilteredExpenses,
     }
-  }, [data, hiddenCategories])
-
-  const pieOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'right' as const,
-        labels: {
-          font: {
-            size: 12,
-          },
-        },
-      },
-      title: {
-        display: true,
-        text: 'Распределение расходов по категориям',
-        font: {
-          size: 16,
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: (context: TooltipItem<'pie'>) => {
-            const value = context.raw as number
-            return ` ${formatNumber(value)}`
-          },
-        },
-      },
-    },
-  }
+  }, [data, hiddenCategories, regexFilter])
 
   const barOptions = {
     responsive: true,
@@ -187,7 +153,7 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
       },
       title: {
         display: true,
-        text: 'Расходы по дням',
+        text: 'Расходы по категориям',
         font: {
           size: 16,
         },
@@ -226,6 +192,19 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.filterContainer}>
+        <input
+          type="text"
+          value={regexFilter}
+          onChange={(e) => setRegexFilter(e.target.value)}
+          placeholder="Фильтр по дате (регулярное выражение)"
+          className={styles.filterInput}
+        />
+      </div>
+      <div className={styles.totalFilteredExpenses}>
+        <h3>Общая сумма расходов за выбранный период</h3>
+        <p>{formatNumber(filteredTotal)}</p>
+      </div>
       <div className={styles.categoryToggles}>
         <h3>Управление категориями</h3>
         <div className={styles.toggles}>
@@ -246,9 +225,6 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
         </div>
       </div>
       <div className={styles.charts}>
-        <div className={styles.chart}>
-          <Pie data={pieData} options={pieOptions} />
-        </div>
         <div className={styles.chart}>
           <Bar data={barData} options={barOptions} />
         </div>

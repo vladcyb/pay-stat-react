@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { PaymentData } from '../../types'
 import { categoryRussian } from '../../shared/constants/categoryRussian'
 import styles from './DailyStatistics.module.scss'
+import { formatNumber } from '../../shared/lib/formatNumber.ts'
 
 interface DailyStatisticsProps {
   data: PaymentData
@@ -18,6 +19,15 @@ interface DayStats {
 }
 
 export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
+  const [regexFilter, setRegexFilter] = useState('')
+
+  const formatDate = (dateStr: string) => {
+    const year = dateStr.slice(0, 4)
+    const month = dateStr.slice(4, 6)
+    const day = dateStr.slice(6, 8)
+    return `${day}.${month}.${year}`
+  }
+
   const dailyStats = useMemo(() => {
     const stats: DayStats[] = Object.entries(data.payments).map(
       ([date, payments]) => {
@@ -34,16 +44,39 @@ export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
     return stats.sort((a, b) => b.date.localeCompare(a.date))
   }, [data])
 
-  const formatDate = (dateStr: string) => {
-    const year = dateStr.slice(0, 4)
-    const month = dateStr.slice(4, 6)
-    const day = dateStr.slice(6, 8)
-    return `${day}.${month}.${year}`
-  }
+  const filteredDailyStats = useMemo(() => {
+    if (!regexFilter) return dailyStats
+
+    try {
+      const regex = new RegExp(`^${regexFilter}$`, 'i')
+      return dailyStats.filter((day) => regex.test(formatDate(day.date)))
+    } catch (error) {
+      console.error('Invalid regex pattern:', error)
+      // Если регулярное выражение некорректное, показываем все дни
+      return dailyStats
+    }
+  }, [dailyStats, regexFilter])
+
+  const totalFilteredExpenses = useMemo(() => {
+    return filteredDailyStats.reduce((sum, day) => sum + day.total, 0)
+  }, [filteredDailyStats])
 
   return (
     <div className={styles.container}>
-      {dailyStats.map((day) => (
+      <div className={styles.filterContainer}>
+        <input
+          type="text"
+          value={regexFilter}
+          onChange={(e) => setRegexFilter(e.target.value)}
+          placeholder="Фильтр по дате (регулярное выражение)"
+          className={styles.filterInput}
+        />
+      </div>
+      <div className={styles.totalFilteredExpenses}>
+        <h3>Общая сумма расходов за выбранный период</h3>
+        <p>{formatNumber(totalFilteredExpenses)}</p>
+      </div>
+      {filteredDailyStats.map((day) => (
         <div key={day.date} className={styles.dayCard}>
           <div className={styles.dayHeader}>
             <h3>{formatDate(day.date)}</h3>

@@ -4,6 +4,7 @@ import { categoryRussian } from '../../shared/constants/categoryRussian'
 import { DailyStatistics } from './DailyStatistics'
 import { ChartStatistics } from './ChartStatistics'
 import styles from './Statistics.module.scss'
+import { formatNumber } from '../../shared/lib/formatNumber.ts'
 
 interface StatisticsProps {
   data: PaymentData
@@ -56,7 +57,7 @@ export const Statistics = ({ data }: StatisticsProps) => {
       <h2 className={styles.title}>{data.title}</h2>
       <div className={styles.totalSpent}>
         <h3>Общая сумма расходов</h3>
-        <p>{totalSpent}</p>
+        <p>{formatNumber(totalSpent)}</p>
       </div>
 
       <div className={styles.tabs}>

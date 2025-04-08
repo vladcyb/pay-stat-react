@@ -7,7 +7,11 @@ import { useData } from './useData.ts'
 import styles from './App.module.scss'
 
 export const App = () => {
-  const { data, handleDataLoaded } = useData()
+  const { data, handleDataLoaded, isLoading } = useData()
+
+  if (isLoading) {
+    return null
+  }
 
   return (
     <div className={styles.App}>
