@@ -1,103 +1,19 @@
 import { useState, useCallback } from 'react'
 import { PaymentData } from '../../types'
 import styles from './FileUploader.module.scss'
-import { categoryRussian } from '../../shared/constants/categoryRussian'
+import type { UnvalidatedData } from './types.ts'
+import { validateData } from '../shared/validateData.ts'
+import { useSearchParams } from 'react-router'
 
 interface FileUploaderProps {
   onDataLoaded: (data: PaymentData) => void
 }
 
-interface UnvalidatedPayment {
-  category?: number
-  value?: number
-  name?: string
-  [key: string]: unknown
-}
-
-interface UnvalidatedData {
-  title?: string
-  payments?: Record<string, UnvalidatedPayment[]>
-  [key: string]: unknown
-}
-
-const validateData = (
-  data: UnvalidatedData
-): { isValid: boolean; error?: string } => {
-  // Проверка наличия обязательных полей
-  if (!data.title || typeof data.title !== 'string') {
-    return {
-      isValid: false,
-      error: 'Отсутствует или неверный формат поля "title"',
-    }
-  }
-
-  if (!data.payments || typeof data.payments !== 'object') {
-    return {
-      isValid: false,
-      error: 'Отсутствует или неверный формат поля "payments"',
-    }
-  }
-
-  // Проверка формата дат и платежей
-  for (const date of Object.keys(data.payments)) {
-    // Проверка формата даты (ГГГГММДД)
-    if (!/^\d{8}$/.test(date)) {
-      return {
-        isValid: false,
-        error: `Неверный формат даты: ${date}. Ожидается формат ГГГГММДД`,
-      }
-    }
-
-    const payments = data.payments[date]
-    if (!Array.isArray(payments)) {
-      return {
-        isValid: false,
-        error: `Платежи для даты ${date} должны быть массивом`,
-      }
-    }
-
-    // Проверка каждого платежа
-    for (const payment of payments) {
-      if (
-        !Object.hasOwn(payment, 'category') ||
-        !Object.hasOwn(payment, 'value') ||
-        !Object.hasOwn(payment, 'name')
-      ) {
-        return {
-          isValid: false,
-          error: 'Каждый платеж должен содержать поля category, value и name',
-        }
-      }
-
-      if (!Object.keys(categoryRussian).includes(String(payment.category))) {
-        return {
-          isValid: false,
-          error: `Неверная категория: ${payment.category}. Доступны категории от 1 до 23`,
-        }
-      }
-
-      if (typeof payment.value !== 'number' || payment.value <= 0) {
-        return {
-          isValid: false,
-          error: 'Сумма платежа должна быть положительным числом',
-        }
-      }
-
-      if (typeof payment.name !== 'string' || payment.name.trim() === '') {
-        return {
-          isValid: false,
-          error: 'Название платежа должно быть непустой строкой',
-        }
-      }
-    }
-  }
-
-  return { isValid: true }
-}
-
 export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
   const [jsonUrl, setJsonUrl] = useState('')
   const [isDragging, setIsDragging] = useState(false)
+
+  const [, setSearchParams] = useSearchParams()
 
   const processData = useCallback((data: UnvalidatedData) => {
     const validation = validateData(data)
@@ -123,7 +39,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
         )
       }
     },
-    [onDataLoaded, processData]
+    [processData]
   )
 
   const handleDrop = useCallback(
@@ -176,40 +92,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
       return
     }
 
-    try {
-      const response = await fetch(jsonUrl, {
-        mode: 'cors',
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-
-      const data = await response.json()
-      const validatedData = processData(data)
-      onDataLoaded(validatedData)
-    } catch (error) {
-      console.error('Error fetching JSON from URL:', error)
-      if (
-        error instanceof TypeError &&
-        error.message.includes('Failed to fetch')
-      ) {
-        alert(
-          'Не удалось загрузить данные. Возможные причины:\n' +
-            '- URL недоступен\n' +
-            '- Сервер не поддерживает CORS\n' +
-            '- Проблемы с сетевым подключением'
-        )
-      } else {
-        alert(
-          'Ошибка при загрузке данных по URL: ' +
-            (error instanceof Error ? error.message : 'Неизвестная ошибка')
-        )
-      }
-    }
+    setSearchParams({ source: jsonUrl })
   }
 
   return (
@@ -245,7 +128,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
         <div className={styles.FileUploader__divider}>ИЛИ</div>
 
         <div className={styles.option}>
-          <p>Введите ссылку на JSON в текстовое поле и нажмите Enter</p>
+          <p>Введите ссылку на JSON в текстовое поле и нажмите Enter.</p>
           <form onSubmit={handleUrlSubmit}>
             <input
               type="text"
