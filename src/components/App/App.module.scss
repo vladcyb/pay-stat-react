@@ -1,6 +1,10 @@
 .App {
   min-height: 100vh;
   padding: 20px;
+
+  @media screen and (max-width: 720px) {
+    padding: 0;
+  }
 }
 
 .App__header {

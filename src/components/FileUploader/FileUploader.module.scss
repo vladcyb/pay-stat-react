@@ -1,5 +1,6 @@
 .FileUploader {
   width: 100%;
+  max-width: 98%;
   min-height: 200px;
   display: flex;
   flex-direction: column;
@@ -57,7 +58,8 @@
 }
 
 .FileUploader__urlInput {
-  width: 500px;
+  //width: 500px;
+  width: 98%;
   padding: 12px 12px;
   border: 1px solid #d1d5db;
   border-radius: 4px;
