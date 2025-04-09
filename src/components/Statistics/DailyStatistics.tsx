@@ -65,11 +65,14 @@ export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
     <div className={styles.container}>
       <div className={styles.filterContainer}>
         <input
+          className={styles.filterInput}
           type="text"
           value={regexFilter}
           onChange={(e) => setRegexFilter(e.target.value)}
           placeholder="Фильтр по дате (регулярное выражение)"
-          className={styles.filterInput}
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck="false"
         />
       </div>
       <div className={styles.totalFilteredExpenses}>

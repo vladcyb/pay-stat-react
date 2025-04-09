@@ -199,6 +199,9 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
           value={regexFilter}
           onChange={(e) => setRegexFilter(e.target.value)}
           placeholder="Фильтр по дате (регулярное выражение)"
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck="false"
         />
       </div>
       <div className={styles.totalFilteredExpenses}>
