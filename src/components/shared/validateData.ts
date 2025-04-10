@@ -1,4 +1,4 @@
-import { categoryRussian } from '../../shared/constants/categoryRussian.ts'
+import { categoryMap } from '../../shared/constants/categoryMap.ts'
 import type { UnvalidatedData } from '../FileUploader/types.ts'
 
 export const validateData = (
@@ -50,7 +50,7 @@ export const validateData = (
         }
       }
 
-      if (!Object.keys(categoryRussian).includes(String(payment.category))) {
+      if (!Object.keys(categoryMap).includes(String(payment.category))) {
         return {
           isValid: false,
           error: `Неверная категория: ${payment.category}. Доступны категории от 1 до 23`,

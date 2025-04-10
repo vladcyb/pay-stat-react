@@ -1,4 +1,4 @@
-import { categoryRussian } from '../../../shared/constants/categoryRussian.ts'
+import { categoryMap } from '../../../shared/constants/categoryMap.ts'
 
 import styles from './CategoriesGuide.module.scss'
 import { Guide } from '../../shared/Guide'
@@ -13,16 +13,18 @@ export const CategoriesGuide = () => (
     ]}
   >
     <div className={styles.CategoriesGuide__categories}>
-      {Object.entries(categoryRussian).map(([categoryId, categoryName]) => (
-        <div key={categoryId} className={styles.CategoriesGuide__category}>
-          <div className={styles.categoriesGuide__categoryHeader}>
-            <div>{categoryId}</div>
-            <strong className={styles.categoriesGuide__categoryName}>
-              {categoryName}
-            </strong>
+      {Object.entries(categoryMap).map(
+        ([categoryId, { name: categoryName }]) => (
+          <div key={categoryId} className={styles.CategoriesGuide__category}>
+            <div className={styles.categoriesGuide__categoryHeader}>
+              <div>{categoryId}</div>
+              <strong className={styles.categoriesGuide__categoryName}>
+                {categoryName}
+              </strong>
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      )}
     </div>
   </Guide>
 )

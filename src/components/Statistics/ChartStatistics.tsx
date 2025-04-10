@@ -8,11 +8,13 @@ import {
   BarElement,
   Title,
   TooltipItem,
-  Scale,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { PaymentData } from '../../types'
-import { categoryRussian } from '../../shared/constants/categoryRussian'
+import {
+  categoryMap,
+  CategoryMapIndex,
+} from '../../shared/constants/categoryMap.ts'
 import styles from './ChartStatistics.module.scss'
 import { formatNumber } from '../../shared/lib/formatNumber.ts'
 
@@ -36,30 +38,6 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
   const { barData, allCategories, filteredTotal } = useMemo(() => {
     // Подготавливаем данные для столбчатой диаграммы по категориям
     const categoryTotals: Record<number, number> = {}
-    const backgroundColors = [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56',
-      '#4BC0C0',
-      '#9966FF',
-      '#FF9F40',
-      '#7FBA00',
-      '#00A4EF',
-      '#F25022',
-      '#8E44AD',
-      '#2ECC71',
-      '#E74C3C',
-      '#3498DB',
-      '#F1C40F',
-      '#1ABC9C',
-      '#E67E22',
-      '#95A5A6',
-      '#16A085',
-      '#D35400',
-      '#27AE60',
-      '#C0392B',
-      '#2980B9',
-    ]
 
     // Фильтруем даты по регулярному выражению
     let filteredDates = Object.keys(data.payments)
@@ -97,14 +75,17 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
 
     // Создаем соответствие категорий и цветов
     const categoryColors = new Map<number, string>()
-    visibleCategories.forEach((category, index) => {
-      categoryColors.set(category, backgroundColors[index])
+    visibleCategories.forEach((category) => {
+      categoryColors.set(
+        category,
+        categoryMap[category as CategoryMapIndex].color
+      )
     })
 
     // Создаем данные для столбчатой диаграммы по категориям
     const barChartData = {
       labels: visibleCategories.map(
-        (cat) => categoryRussian[cat as keyof typeof categoryRussian]
+        (cat) => categoryMap[cat as CategoryMapIndex].name
       ),
       datasets: [
         {
@@ -170,14 +151,6 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
     scales: {
       y: {
         beginAtZero: true,
-        ticks: {
-          callback: function (this: Scale, value: number | string) {
-            if (typeof value === 'number') {
-              return formatNumber(value)
-            }
-            return value
-          },
-        },
       },
     },
   }
@@ -218,7 +191,7 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
               onClick={() => toggleCategory(category)}
             >
               <span className={styles.categoryName}>
-                {categoryRussian[category as keyof typeof categoryRussian]}
+                {categoryMap[category as CategoryMapIndex].name}
               </span>
               <span className={styles.categoryTotal}>
                 {formatNumber(total)}

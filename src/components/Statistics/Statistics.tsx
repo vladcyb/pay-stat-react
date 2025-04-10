@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { PaymentData } from '../../types'
-import { categoryRussian } from '../../shared/constants/categoryRussian'
+import {
+  categoryMap,
+  CategoryMapIndex,
+} from '../../shared/constants/categoryMap.ts'
 import { DailyStatistics } from './DailyStatistics'
 import { ChartStatistics } from './ChartStatistics'
 import styles from './Statistics.module.scss'
@@ -85,9 +88,7 @@ export const Statistics = ({ data }: StatisticsProps) => {
         <div className={styles.categories}>
           {sortedCategories.map(({ category, total }) => (
             <div key={category} className={styles.category}>
-              <h4>
-                {categoryRussian[category as keyof typeof categoryRussian]}
-              </h4>
+              <h4>{categoryMap[category as CategoryMapIndex].name}</h4>
               <p>Общая сумма: {total}</p>
               <div className={styles.items}>
                 {categoryPayments[category]?.map((payment, index) => (

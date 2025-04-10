@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import { PaymentData } from '../../types'
-import { categoryRussian } from '../../shared/constants/categoryRussian'
+import {
+  categoryMap,
+  CategoryMapIndex,
+} from '../../shared/constants/categoryMap.ts'
 import styles from './DailyStatistics.module.scss'
 import { formatNumber } from '../../shared/lib/formatNumber.ts'
 
@@ -91,11 +94,7 @@ export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
                 <div className={styles.paymentInfo}>
                   <span className={styles.paymentName}>{payment.name}</span>
                   <span className={styles.paymentCategory}>
-                    {
-                      categoryRussian[
-                        payment.category as keyof typeof categoryRussian
-                      ]
-                    }
+                    {categoryMap[payment.category as CategoryMapIndex].name}
                   </span>
                 </div>
                 <span className={styles.paymentValue}>{payment.value}</span>
