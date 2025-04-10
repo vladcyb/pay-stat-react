@@ -17,6 +17,9 @@ import {
 } from '../../shared/constants/categoryMap.ts'
 import styles from './ChartStatistics.module.scss'
 import { formatNumber } from '../../shared/lib/formatNumber.ts'
+import { formatDate } from '../../shared/lib/formatDate.ts'
+import { DateSelector } from '../DateSelector'
+import { DayStats } from '../../shared/types/DayStats.ts'
 
 ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title)
 
@@ -24,18 +27,11 @@ interface ChartStatisticsProps {
   data: PaymentData
 }
 
-const formatDate = (dateStr: string) => {
-  const year = dateStr.slice(0, 4)
-  const month = dateStr.slice(4, 6)
-  const day = dateStr.slice(6, 8)
-  return `${day}.${month}.${year}`
-}
-
 export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
   const [hiddenCategories, setHiddenCategories] = useState<number[]>([])
   const [regexFilter, setRegexFilter] = useState('')
 
-  const { barData, allCategories, filteredTotal } = useMemo(() => {
+  const { barData, allCategories } = useMemo(() => {
     // Подготавливаем данные для столбчатой диаграммы по категориям
     const categoryTotals: Record<number, number> = {}
 
@@ -163,24 +159,42 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
     )
   }
 
+  const dailyStats = useMemo(() => {
+    const stats: DayStats[] = Object.entries(data.payments).map(
+      ([date, payments]) => {
+        const total = payments.reduce((sum, payment) => sum + payment.value, 0)
+        return {
+          date,
+          total,
+          payments: [...payments].sort((a, b) => b.value - a.value), // Сортировка по убыванию суммы
+        }
+      }
+    )
+
+    // Сортировка дней по убыванию даты (сначала новые)
+    return stats.sort((a, b) => b.date.localeCompare(a.date))
+  }, [data])
+
+  const filteredDailyPayments = useMemo(() => {
+    if (!regexFilter) return dailyStats
+
+    try {
+      const regex = new RegExp(`^${regexFilter}$`, 'i')
+      return dailyStats.filter((day) => regex.test(formatDate(day.date)))
+    } catch (error) {
+      console.error('Invalid regex pattern:', error)
+      // Если регулярное выражение некорректное, показываем все дни
+      return dailyStats
+    }
+  }, [dailyStats, regexFilter])
+
   return (
     <div className={styles.container}>
-      <div className={styles.filterContainer}>
-        <input
-          className={styles.filterInput}
-          type="text"
-          value={regexFilter}
-          onChange={(e) => setRegexFilter(e.target.value)}
-          placeholder="Фильтр по дате (регулярное выражение)"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck="false"
-        />
-      </div>
-      <div className={styles.totalFilteredExpenses}>
-        <h3>Общая сумма расходов за выбранный период</h3>
-        <p>{formatNumber(filteredTotal)}</p>
-      </div>
+      <DateSelector
+        regexFilter={regexFilter}
+        setRegexFilter={setRegexFilter}
+        filteredDailyPayments={filteredDailyPayments}
+      />
       <div className={styles.categoryToggles}>
         <h3>Управление категориями</h3>
         <div className={styles.toggles}>

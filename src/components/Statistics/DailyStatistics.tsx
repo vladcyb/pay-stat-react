@@ -5,31 +5,16 @@ import {
   CategoryMapIndex,
 } from '../../shared/constants/categoryMap.ts'
 import styles from './DailyStatistics.module.scss'
-import { formatNumber } from '../../shared/lib/formatNumber.ts'
+import { formatDate } from '../../shared/lib/formatDate.ts'
+import { DateSelector } from '../DateSelector'
+import { DayStats } from '../../shared/types/DayStats.ts'
 
 interface DailyStatisticsProps {
   data: PaymentData
 }
 
-interface DayStats {
-  date: string
-  total: number
-  payments: Array<{
-    category: number
-    value: number
-    name: string
-  }>
-}
-
 export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
   const [regexFilter, setRegexFilter] = useState('')
-
-  const formatDate = (dateStr: string) => {
-    const year = dateStr.slice(0, 4)
-    const month = dateStr.slice(4, 6)
-    const day = dateStr.slice(6, 8)
-    return `${day}.${month}.${year}`
-  }
 
   const dailyStats = useMemo(() => {
     const stats: DayStats[] = Object.entries(data.payments).map(
@@ -47,7 +32,7 @@ export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
     return stats.sort((a, b) => b.date.localeCompare(a.date))
   }, [data])
 
-  const filteredDailyStats = useMemo(() => {
+  const filteredDailyPayments = useMemo(() => {
     if (!regexFilter) return dailyStats
 
     try {
@@ -60,29 +45,14 @@ export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
     }
   }, [dailyStats, regexFilter])
 
-  const totalFilteredExpenses = useMemo(() => {
-    return filteredDailyStats.reduce((sum, day) => sum + day.total, 0)
-  }, [filteredDailyStats])
-
   return (
     <div className={styles.container}>
-      <div className={styles.filterContainer}>
-        <input
-          className={styles.filterInput}
-          type="text"
-          value={regexFilter}
-          onChange={(e) => setRegexFilter(e.target.value)}
-          placeholder="Фильтр по дате (регулярное выражение)"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck="false"
-        />
-      </div>
-      <div className={styles.totalFilteredExpenses}>
-        <h3>Общая сумма расходов за выбранный период</h3>
-        <p>{formatNumber(totalFilteredExpenses)}</p>
-      </div>
-      {filteredDailyStats.map((day) => (
+      <DateSelector
+        regexFilter={regexFilter}
+        setRegexFilter={setRegexFilter}
+        filteredDailyPayments={filteredDailyPayments}
+      />
+      {filteredDailyPayments.map((day) => (
         <div key={day.date} className={styles.dayCard}>
           <div className={styles.dayHeader}>
             <h3>{formatDate(day.date)}</h3>

@@ -4,32 +4,6 @@
   gap: 20px;
 }
 
-.filterContainer {
-  margin-bottom: 10px;
-}
-
-.filterInput {
-  width: 98%;
-  margin: 0 auto;
-  display: block;
-  padding: 8px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
-  font-size: 14px;
-  color: var(--c-text);
-  background-color: white;
-  transition: border-color 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: #2196f3;
-  }
-
-  &::placeholder {
-    color: #9ca3af;
-  }
-}
-
 .totalFilteredExpenses {
   background-color: #f9fafb;
   padding: 20px;
