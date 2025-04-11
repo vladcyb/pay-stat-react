@@ -3,7 +3,7 @@ import { PaymentData } from '../../types'
 import styles from './FileUploader.module.scss'
 import type { UnvalidatedData } from './types.ts'
 import { validateData } from '../shared/validateData.ts'
-import { useSearchParams } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 
 interface FileUploaderProps {
   onDataLoaded: (data: PaymentData) => void
@@ -12,6 +12,7 @@ interface FileUploaderProps {
 export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
   const [jsonUrl, setJsonUrl] = useState('')
   const [isDragging, setIsDragging] = useState(false)
+  const [lastUrl] = useState(() => localStorage.getItem('lastUrl'))
 
   const [, setSearchParams] = useSearchParams()
 
@@ -39,8 +40,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
         )
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [processData]
+    [processData, onDataLoaded]
   )
 
   const handleDrop = useCallback(
@@ -139,6 +139,13 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
               placeholder="https://example.com/data.json"
             />
           </form>
+          {typeof lastUrl === 'string' && (
+            <div>
+              <Link to={`${import.meta.env.BASE_URL}?source=${lastUrl}`}>
+                Последний URL
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>

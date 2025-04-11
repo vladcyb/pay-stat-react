@@ -22,6 +22,7 @@ export type CategoryMapIndex =
   | 21
   | 22
   | 23
+  | 24
 
 type ValueType = {
   name: string
@@ -51,5 +52,6 @@ export const categoryMap: Record<CategoryMapIndex, ValueType> = {
   20: { name: 'Другое', color: '#27AE60' },
   21: { name: 'Средства гигиены', color: '#C0392B' },
   22: { name: 'Питьевая вода', color: '#2980B9' },
-  23: { name: 'Заправка машины', color: 'rebeccapurple' },
+  23: { name: 'Заправка машины', color: '#c600e5' },
+  24: { name: 'ПО', color: '#593900' },
 }

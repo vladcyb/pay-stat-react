@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { PaymentData } from '../../types'
+import { useCallback, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
+import { PaymentData } from '../../types'
 import { validateData } from '../shared/validateData.ts'
 
 export const useData = () => {
@@ -8,10 +8,10 @@ export const useData = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [searchParams] = useSearchParams()
 
-  const handleDataLoaded = (data: PaymentData) => {
+  const handleDataLoaded = useCallback((data: PaymentData) => {
     setData(data)
     setIsLoading(false)
-  }
+  }, [])
 
   const fetchFromUrl = async (url: string | null) => {
     if (!url) {
@@ -35,6 +35,7 @@ export const useData = () => {
     } catch (error) {
       setIsLoading(false)
       console.error('Error fetching JSON from URL:', error)
+
       if (
         error instanceof TypeError &&
         error.message.includes('Failed to fetch')
