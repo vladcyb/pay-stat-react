@@ -1,9 +1,11 @@
+import { Link, useNavigate } from 'react-router'
 import { useState, useCallback } from 'react'
+
 import { PaymentData } from '../../types'
+import type { UnvalidatedData } from './types'
+import { validateData } from '../shared/validateData'
+
 import styles from './FileUploader.module.scss'
-import type { UnvalidatedData } from './types.ts'
-import { validateData } from '../shared/validateData.ts'
-import { Link, useSearchParams } from 'react-router'
 
 interface FileUploaderProps {
   onDataLoaded: (data: PaymentData) => void
@@ -13,8 +15,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
   const [jsonUrl, setJsonUrl] = useState('')
   const [isDragging, setIsDragging] = useState(false)
   const [lastUrl] = useState(() => localStorage.getItem('lastUrl'))
-
-  const [, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
 
   const processData = useCallback((data: UnvalidatedData) => {
     const validation = validateData(data)
@@ -92,8 +93,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
       alert('Пожалуйста, введите корректный URL')
       return
     }
-
-    setSearchParams({ source: jsonUrl })
+    navigate(`/pay-stat-react/stats/${encodeURIComponent(jsonUrl)}`)
   }
 
   return (
@@ -141,7 +141,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
           </form>
           {typeof lastUrl === 'string' && (
             <div>
-              <Link to={`${import.meta.env.BASE_URL}?source=${lastUrl}`}>
+              <Link to={`/pay-stat-react/stats/${encodeURIComponent(lastUrl)}`}>
                 Последний URL
               </Link>
             </div>

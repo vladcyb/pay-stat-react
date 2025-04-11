@@ -1,36 +1,14 @@
-import { FileUploader } from '../FileUploader/FileUploader.tsx'
-import { FormatGuide } from '../guides/FormatGuide'
-import { CategoriesGuide } from '../guides/CategoriesGuide'
-import { Statistics } from '../Statistics/Statistics.tsx'
-import { useData } from './useData.ts'
+import { AppRoutes } from './AppRoutes'
 
 import styles from './App.module.scss'
 
-export const App = () => {
-  const { data, handleDataLoaded, isLoading } = useData()
-
-  if (isLoading) {
-    return null
-  }
-
-  return (
-    <div className={styles.App}>
-      <header className={styles.App__header}>
-        <h1 className={styles.App__title}>Анализ расходов</h1>
-      </header>
-      <main className={styles.App__main}>
-        {!data ? (
-          <>
-            <FileUploader onDataLoaded={handleDataLoaded} />
-            <div className={styles.App__guides}>
-              <FormatGuide />
-              <CategoriesGuide />
-            </div>
-          </>
-        ) : (
-          <Statistics data={data} />
-        )}
-      </main>
-    </div>
-  )
-}
+export const App = () => (
+  <div className={styles.App}>
+    <header className={styles.App__header}>
+      <h1 className={styles.App__title}>Анализ расходов</h1>
+    </header>
+    <main className={styles.App__main}>
+      <AppRoutes />
+    </main>
+  </div>
+)

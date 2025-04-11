@@ -1,1 +1,1 @@
-export * from './FormatGuide.tsx'
+export * from './FormatGuide'
