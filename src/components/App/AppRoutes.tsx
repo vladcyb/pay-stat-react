@@ -4,16 +4,18 @@ import { StatisticsWithData } from './StatisticsWithData'
 import { MainPage } from './MainPage'
 
 export const AppRoutes = () => {
+  const { BASE_URL } = import.meta.env
+
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
+      <Route path={BASE_URL} element={<MainPage />} />
       <Route path="/stats/:source" element={<StatisticsWithData />} />
-      <Route path="/pay-stat-react/" element={<Navigate to="/" replace />} />
+      <Route path="/" element={<Navigate to={BASE_URL} replace />} />
       <Route
         path="/pay-stat-react/stats/:source"
         element={<StatisticsWithData />}
       />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to={BASE_URL} replace />} />
     </Routes>
   )
 }

@@ -1,0 +1,16 @@
+.Button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--c-code-bg);
+  color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+
+  &:active {
+    background-color: #f3f4f6;
+    color: var(--c-code-bg);
+  }
+}
