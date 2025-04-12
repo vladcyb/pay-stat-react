@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 
 import { AppRoutes } from './AppRoutes'
 import { Button } from '../shared/Button'
+import { BASE_URL } from '../../shared/constants/baseUrl.ts'
 
 import styles from './App.module.scss'
 
@@ -10,11 +11,9 @@ export const App = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  const { BASE_URL } = import.meta.env
-
   const onMainPageBtnClick = useCallback(() => {
     navigate(BASE_URL)
-  }, [])
+  }, [navigate])
 
   return (
     <div className={styles.App}>
