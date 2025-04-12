@@ -93,7 +93,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
       alert('Пожалуйста, введите корректный URL')
       return
     }
-    navigate(`/pay-stat-react/stats/${encodeURIComponent(jsonUrl)}`)
+    navigate(`/stats/${encodeURIComponent(jsonUrl)}`)
   }
 
   return (
@@ -141,7 +141,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
           </form>
           {typeof lastUrl === 'string' && (
             <div>
-              <Link to={`/pay-stat-react/stats/${encodeURIComponent(lastUrl)}`}>
+              <Link to={`stats/${encodeURIComponent(lastUrl)}`}>
                 Последний URL
               </Link>
             </div>

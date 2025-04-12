@@ -3,7 +3,6 @@ import { useCallback } from 'react'
 
 import { AppRoutes } from './AppRoutes'
 import { Button } from '../shared/Button'
-import { BASE_URL } from '../../shared/constants/baseUrl.ts'
 
 import styles from './App.module.scss'
 
@@ -12,12 +11,12 @@ export const App = () => {
   const { pathname } = useLocation()
 
   const onMainPageBtnClick = useCallback(() => {
-    navigate(BASE_URL)
+    navigate('/')
   }, [navigate])
 
   return (
     <div className={styles.App}>
-      {pathname !== BASE_URL && (
+      {pathname !== '/' && (
         <Button onClick={onMainPageBtnClick}>На главную</Button>
       )}
       <header className={styles.App__header}>
