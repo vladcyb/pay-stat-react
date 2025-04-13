@@ -25,8 +25,8 @@ export const DateSelector = ({
   }, [filteredDailyPayments])
 
   return (
-    <div>
-      <div className={styles.filterContainer}>
+    <>
+      <div>
         <input
           className={styles.filterInput}
           type="text"
@@ -52,6 +52,6 @@ export const DateSelector = ({
         <h3>Общая сумма расходов за выбранный период</h3>
         <p>{formatNumber(totalFilteredExpenses)}</p>
       </div>
-    </div>
+    </>
   )
 }

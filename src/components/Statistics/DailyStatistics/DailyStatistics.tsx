@@ -48,7 +48,7 @@ export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
   }, [dailyStats, regexFilter])
 
   return (
-    <div className={styles.container}>
+    <div className={styles.DailyStatistics}>
       <DateSelector
         regexFilter={regexFilter}
         setRegexFilter={setRegexFilter}

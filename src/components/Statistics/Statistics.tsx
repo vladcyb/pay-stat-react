@@ -8,6 +8,7 @@ import { formatNumber } from '../../shared/lib/formatNumber'
 
 import styles from './Statistics.module.scss'
 import { TabEnum } from './types.ts'
+import { Tabs } from './Tabs.tsx'
 
 interface StatisticsProps {
   data: PaymentData
@@ -31,24 +32,7 @@ export const Statistics = ({ data }: StatisticsProps) => {
       </div>
 
       <div className={styles.Statistics__tabs}>
-        <button
-          className={`${styles.Statistics__tab} ${activeTab === TabEnum.categories ? styles.active : ''}`}
-          onClick={() => setActiveTab(TabEnum.categories)}
-        >
-          По категориям
-        </button>
-        <button
-          className={`${styles.Statistics__tab} ${activeTab === TabEnum.daily ? styles.active : ''}`}
-          onClick={() => setActiveTab(TabEnum.daily)}
-        >
-          По дням
-        </button>
-        <button
-          className={`${styles.Statistics__tab} ${activeTab === TabEnum.charts ? styles.active : ''}`}
-          onClick={() => setActiveTab(TabEnum.charts)}
-        >
-          Графики
-        </button>
+        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       {activeTab === TabEnum.categories && <CategoriesStatistics data={data} />}
       {activeTab === TabEnum.daily && <DailyStatistics data={data} />}

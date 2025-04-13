@@ -3,3 +3,8 @@ export enum TabEnum {
   daily,
   charts,
 }
+
+export type TabType = {
+  key: TabEnum
+  label: string
+}
