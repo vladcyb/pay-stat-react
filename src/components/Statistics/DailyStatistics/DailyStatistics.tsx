@@ -1,13 +1,15 @@
 import { useMemo, useState } from 'react'
-import { PaymentData } from '../../types'
+
+import { PaymentData } from '../../../types'
 import {
   categoryMap,
   CategoryMapIndex,
-} from '../../shared/constants/categoryMap.ts'
+} from '../../../shared/constants/categoryMap.ts'
+import { formatDate } from '../../../shared/lib/formatDate.ts'
+import { DateSelector } from '../../DateSelector'
+import { DayStats } from '../../../shared/types/DayStats.ts'
+
 import styles from './DailyStatistics.module.scss'
-import { formatDate } from '../../shared/lib/formatDate.ts'
-import { DateSelector } from '../DateSelector'
-import { DayStats } from '../../shared/types/DayStats.ts'
 
 interface DailyStatisticsProps {
   data: PaymentData
@@ -67,7 +69,7 @@ export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
                     {categoryMap[payment.category as CategoryMapIndex].name}
                   </span>
                 </div>
-                <span className={styles.paymentValue}>{payment.value}</span>
+                <strong>{payment.value}</strong>
               </div>
             ))}
           </div>

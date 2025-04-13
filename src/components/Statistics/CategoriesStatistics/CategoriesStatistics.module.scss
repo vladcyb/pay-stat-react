@@ -1,0 +1,45 @@
+.CategoriesStatistics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  h3 {
+    color: var(--c-text);
+    margin: 0 0 20px;
+  }
+}
+
+.CategoriesStatistics__category {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    margin: 0 0 12px;
+    color: var(--c-text);
+    font-size: 18px;
+  }
+
+  p {
+    margin: 8px 0;
+    color: #6b7280;
+  }
+}
+
+.CategoriesStatistics__items {
+  margin-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+}
+
+.CategoriesStatistics__item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  color: var(--c-text);
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #f3f4f6;
+  }
+}

@@ -10,16 +10,17 @@ import {
   TooltipItem,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { PaymentData } from '../../types'
+import { PaymentData } from '../../../types'
 import {
   categoryMap,
   CategoryMapIndex,
-} from '../../shared/constants/categoryMap.ts'
+} from '../../../shared/constants/categoryMap.ts'
+import { formatNumber } from '../../../shared/lib/formatNumber.ts'
+import { formatDate } from '../../../shared/lib/formatDate.ts'
+import { DateSelector } from '../../DateSelector'
+import { DayStats } from '../../../shared/types/DayStats.ts'
+
 import styles from './ChartStatistics.module.scss'
-import { formatNumber } from '../../shared/lib/formatNumber.ts'
-import { formatDate } from '../../shared/lib/formatDate.ts'
-import { DateSelector } from '../DateSelector'
-import { DayStats } from '../../shared/types/DayStats.ts'
 
 ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title)
 

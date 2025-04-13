@@ -1,4 +1,4 @@
-.container {
+.Statistics {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -35,6 +35,7 @@
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
 .dayHeader {
@@ -68,12 +69,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background-color: #f9fafb;
+  background: #f9fafb;
   border-radius: 4px;
-
-  &:hover {
-    background-color: #f3f4f6;
-  }
 }
 
 .paymentInfo {
@@ -90,9 +87,4 @@
 .paymentCategory {
   color: #6b7280;
   font-size: 14px;
-}
-
-.paymentValue {
-  color: var(--c-text);
-  font-weight: 500;
 }
