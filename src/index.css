@@ -45,10 +45,3 @@ pre,
 code {
   font-family: 'Fira Code', monospace;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-  }
-}

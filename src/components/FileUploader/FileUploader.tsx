@@ -93,6 +93,7 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
       alert('Пожалуйста, введите корректный URL')
       return
     }
+    localStorage.setItem('lastUrl', jsonUrl)
     navigate(`/stats/${encodeURIComponent(jsonUrl)}`)
   }
 
@@ -141,7 +142,10 @@ export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
           </form>
           {typeof lastUrl === 'string' && (
             <div>
-              <Link to={`stats/${encodeURIComponent(lastUrl)}`}>
+              <Link
+                className={styles.FileUploader__lastUrl}
+                to={`stats/${encodeURIComponent(lastUrl)}`}
+              >
                 Последний URL
               </Link>
             </div>

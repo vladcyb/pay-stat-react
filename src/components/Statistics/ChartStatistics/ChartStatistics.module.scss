@@ -4,46 +4,41 @@
   gap: 20px;
 }
 
-.totalFilteredExpenses {
-  background-color: #f9fafb;
-  padding: 20px;
+.Statistics__chart {
+  background-color: white;
   border-radius: 8px;
-  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  min-height: 600px;
+  height: 100%;
+  position: relative;
 
-  h3 {
-    margin: 0;
-    color: #6b7280;
-    font-size: 16px;
-  }
-
-  p {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 10px 0 0;
-    color: #2196f3;
+  @media screen and (max-width: 1024px) {
+    padding: 0;
+    min-height: 1000px;
   }
 }
 
-.categoryToggles {
+.Statistics__categoryToggles {
   background-color: white;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-  h3 {
-    margin: 0 0 16px;
-    font-size: 16px;
-    color: #333;
-  }
 }
 
-.toggles {
+.Statistics__h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  color: #333;
+}
+
+.Statistics__toggles {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 12px;
 }
 
-.toggleButton {
+.Statistics__toggleButton {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,21 +58,17 @@
     background-color: #f5f5f5;
     border-color: #ddd;
     color: #999;
-
-    .categoryTotal {
-      background-color: #e0e0e0;
-    }
   }
 }
 
-.categoryName {
+.Statistics__categoryName {
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.categoryTotal {
+.Statistics__categoryTotal {
   background-color: #e3f2fd;
   padding: 2px 8px;
   border-radius: 12px;
@@ -85,21 +76,4 @@
   font-weight: 500;
   min-width: 60px;
   text-align: right;
-}
-
-.charts {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.chart {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
