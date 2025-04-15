@@ -20,7 +20,22 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/components": ["src/components"],
+      "@/constants/*": ["src/shared/constants/*"],
+      "@/constants": ["src/shared/constants"],
+      "@/lib/*": ["src/shared/lib/*"],
+      "@/lib": ["src/shared/lib"],
+      "@/types/*": ["src/shared/types/*"],
+      "@/types": ["src/shared/types"],
+      "@/ui/*": ["src/shared/ui/*"],
+      "@/sharedComponents/*": ["src/shared/components/*"],
+    }
   },
   "include": ["src"]
 }

@@ -1,17 +1,17 @@
 import { Link, useNavigate } from 'react-router'
 import { useState, useCallback } from 'react'
 
-import { PaymentData } from '../../types'
 import type { UnvalidatedData } from './types'
-import { validateData } from '../shared/validateData'
+import { PaymentData } from '@/types'
+import { validateData } from '@/lib'
 
 import styles from './FileUploader.module.scss'
 
-interface FileUploaderProps {
+type Props = {
   onDataLoaded: (data: PaymentData) => void
 }
 
-export const FileUploader = ({ onDataLoaded }: FileUploaderProps) => {
+export const FileUploader = ({ onDataLoaded }: Props) => {
   const [jsonUrl, setJsonUrl] = useState('')
   const [isDragging, setIsDragging] = useState(false)
   const [lastUrl] = useState(() => localStorage.getItem('lastUrl'))

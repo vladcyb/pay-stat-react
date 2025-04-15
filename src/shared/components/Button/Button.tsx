@@ -1,8 +1,9 @@
 import { PropsWithChildren } from 'react'
 
 import styles from './Button.module.scss'
+import clsx from 'clsx'
 
-type ButtonProps = PropsWithChildren<{
+type Props = PropsWithChildren<{
   className?: string
   onClick?: () => void
   type?: 'button' | 'submit' | 'reset'
@@ -14,8 +15,8 @@ export const Button = ({
   className,
   type = 'button',
   ...props
-}: ButtonProps) => (
-  <button className={styles.Button} {...props} type={type}>
+}: Props) => (
+  <button className={clsx(styles.Button, className)} {...props} type={type}>
     {children}
   </button>
 )

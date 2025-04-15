@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PaymentData } from '../../types'
 import { Navigate, useParams } from 'react-router'
-import { validateData } from '../shared/validateData.ts'
-import { Statistics } from '../Statistics/Statistics.tsx'
+
+import { validateData } from '@/lib'
+import { Statistics } from '@/components/Statistics'
+import { PaymentData } from '@/types'
 
 export const StatisticsWithData = () => {
   const [data, setData] = useState<PaymentData | null>(null)

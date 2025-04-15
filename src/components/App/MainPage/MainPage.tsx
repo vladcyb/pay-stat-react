@@ -1,10 +1,12 @@
-import { FileUploader } from '../../FileUploader/FileUploader.tsx'
-import styles from '../App.module.scss'
-import { FormatGuide } from '../../guides/FormatGuide'
-import { CategoriesGuide } from '../../guides/CategoriesGuide'
-import { Statistics } from '../../Statistics/Statistics.tsx'
 import { useState } from 'react'
-import { PaymentData } from '../../../types'
+
+import { PaymentData } from '@/types/PaymentData'
+import { Statistics } from '@/components/Statistics'
+import { FileUploader } from '@/components/FileUploader/FileUploader'
+import { FormatGuide } from '@/components/FormatGuide'
+import { CategoriesGuide } from '@/components/CategoriesGuide'
+
+import styles from '@/components/App/App.module.scss'
 
 export const MainPage = () => {
   const [data, setData] = useState<PaymentData | null>(null)

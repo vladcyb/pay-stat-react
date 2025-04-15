@@ -1,20 +1,21 @@
 import { useState } from 'react'
 
-import { PaymentData } from '../../types'
 import { DailyStatistics } from './DailyStatistics'
 import { ChartStatistics } from './ChartStatistics'
 import { CategoriesStatistics } from './CategoriesStatistics'
-import { formatNumber } from '../../shared/lib/formatNumber'
+
+import { TabEnum } from './types'
+import { Tabs } from './Tabs'
+import { PaymentData } from '@/types'
+import { formatNumber } from '@/lib'
 
 import styles from './Statistics.module.scss'
-import { TabEnum } from './types.ts'
-import { Tabs } from './Tabs.tsx'
 
-interface StatisticsProps {
+type Props = {
   data: PaymentData
 }
 
-export const Statistics = ({ data }: StatisticsProps) => {
+export const Statistics = ({ data }: Props) => {
   const [activeTab, setActiveTab] = useState<TabEnum>(TabEnum.categories)
 
   const totalSpent = Object.values(data.payments).reduce(

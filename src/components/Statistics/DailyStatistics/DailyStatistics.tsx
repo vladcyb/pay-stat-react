@@ -1,21 +1,17 @@
 import { useMemo, useState } from 'react'
 
-import { PaymentData } from '../../../types'
-import {
-  categoryMap,
-  CategoryMapIndex,
-} from '../../../shared/constants/categoryMap.ts'
-import { formatDate } from '../../../shared/lib/formatDate.ts'
-import { DateSelector } from '../../DateSelector'
-import { DayStats } from '../../../shared/types/DayStats.ts'
+import { DayStats, PaymentData } from '@/types'
+import { formatDate } from '@/lib'
+import { categoryMap, CategoryMapIndex } from '@/constants'
+import { DateSelector } from '@/components'
 
 import styles from './DailyStatistics.module.scss'
 
-interface DailyStatisticsProps {
+type Props = {
   data: PaymentData
 }
 
-export const DailyStatistics = ({ data }: DailyStatisticsProps) => {
+export const DailyStatistics = ({ data }: Props) => {
   const [regexFilter, setRegexFilter] = useState('')
 
   const dailyStats = useMemo(() => {

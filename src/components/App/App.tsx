@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { useCallback } from 'react'
 
 import { AppRoutes } from './AppRoutes'
-import { Button } from '../shared/Button'
+import { Button } from '@/sharedComponents/Button'
 
 import styles from './App.module.scss'
 

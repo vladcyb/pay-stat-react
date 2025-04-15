@@ -1,8 +1,5 @@
-import {
-  categoryMap,
-  CategoryMapIndex,
-} from '../../../shared/constants/categoryMap'
-import { PaymentData } from '../../../types'
+import { PaymentData } from '@/types'
+import { categoryMap, CategoryMapIndex } from '@/constants'
 
 import styles from './CategoriesStatistics.module.scss'
 

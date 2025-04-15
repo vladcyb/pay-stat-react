@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Chart as ChartJS,
   Tooltip,
@@ -8,32 +8,26 @@ import {
   BarElement,
   Title,
   ChartData,
-  ChartOptions,
-  TooltipItem,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { PaymentData } from '../../../types'
-import {
-  categoryMap,
-  CategoryMapIndex,
-} from '../../../shared/constants/categoryMap.ts'
-import { formatNumber } from '../../../shared/lib/formatNumber.ts'
-import { formatDate } from '../../../shared/lib/formatDate.ts'
-import { DateSelector } from '../../DateSelector'
-import { DayStats } from '../../../shared/types/DayStats.ts'
+
+import { DayStats, PaymentData } from '@/types'
+import { formatDate, formatNumber } from '@/lib'
+import { categoryMap, CategoryMapIndex } from '@/constants'
+import { DateSelector } from '@/components'
+import { useBarOptions } from './useBarOptions.ts'
 
 import styles from './ChartStatistics.module.scss'
 
 ChartJS.register(Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title)
 
-interface ChartStatisticsProps {
+type Props = {
   data: PaymentData
 }
 
-export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
+export const ChartStatistics = ({ data }: Props) => {
   const [hiddenCategories, setHiddenCategories] = useState<number[]>([])
   const [regexFilter, setRegexFilter] = useState('')
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024)
 
   const { barData, allCategories } = useMemo(() => {
     // Подготавливаем данные для столбчатой диаграммы по категориям
@@ -165,93 +159,7 @@ export const ChartStatistics = ({ data }: ChartStatisticsProps) => {
     }
   }, [dailyStats, regexFilter])
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 1024)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  const barOptions: ChartOptions<'bar'> = {
-    responsive: true,
-    indexAxis: 'y',
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: isSmallScreen,
-        position: 'bottom',
-        align: 'start',
-        labels: {
-          boxWidth: 16,
-          padding: 15,
-          font: {
-            size: 12,
-          },
-          generateLabels: (chart) => {
-            const datasets = chart.data.datasets[0]
-            if (!datasets.backgroundColor || !chart.data.labels) {
-              return []
-            }
-            const colors = datasets.backgroundColor as string[]
-            return chart.data.labels.map((label, i) => ({
-              text: label as string,
-              fillStyle: colors[i],
-              hidden: false,
-              lineCap: 'butt',
-              lineDash: [],
-              lineDashOffset: 0,
-              lineJoin: 'miter',
-              lineWidth: 1,
-              strokeStyle: colors[i],
-              pointStyle: 'rect',
-              rotation: 0,
-            }))
-          },
-        },
-      },
-      title: {
-        display: true,
-        text: 'Расходы по категориям',
-        font: {
-          size: 16,
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: (context: TooltipItem<'bar'>) => {
-            const value = context.raw as number
-            return `Сумма: ${formatNumber(value)}`
-          },
-        },
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          maxRotation: 0,
-          autoSkip: false,
-          padding: 10,
-          display: !isSmallScreen,
-        },
-        grid: {
-          display: true,
-        },
-      },
-      x: {
-        grid: {
-          display: true,
-        },
-      },
-    },
-    layout: {
-      padding: {
-        bottom: isSmallScreen ? 160 : 20,
-      },
-    },
-  }
+  const barOptions = useBarOptions()
 
   return (
     <div className={styles.Statistics}>

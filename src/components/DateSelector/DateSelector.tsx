@@ -1,8 +1,9 @@
-import styles from './DateSelector.module.scss'
-import { formatDate } from '../../shared/lib/formatDate.ts'
-import { formatNumber } from '../../shared/lib/formatNumber.ts'
 import { useMemo } from 'react'
-import { DayStats } from '../../shared/types/DayStats.ts'
+
+import { DayStats } from '@/types'
+import { formatDate, formatNumber } from '@/lib'
+
+import styles from './DateSelector.module.scss'
 
 type Props = {
   /** Фильтр даты */
