@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
-import { DayStats } from '@/types'
 import { formatDate, formatNumber } from '@/lib'
+import { DayStats } from '@/types'
 
 import styles from './DateSelector.module.scss'
 

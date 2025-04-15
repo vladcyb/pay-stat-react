@@ -1,8 +1,9 @@
-import { useLocation, useNavigate } from 'react-router'
 import { useCallback } from 'react'
+import { useLocation, useNavigate } from 'react-router'
+
+import { Button } from '@/sharedComponents/Button'
 
 import { AppRoutes } from './AppRoutes'
-import { Button } from '@/sharedComponents/Button'
 
 import styles from './App.module.scss'
 

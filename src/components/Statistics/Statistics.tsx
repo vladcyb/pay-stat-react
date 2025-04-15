@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import { DailyStatistics } from './DailyStatistics'
-import { ChartStatistics } from './ChartStatistics'
-import { CategoriesStatistics } from './CategoriesStatistics'
-
-import { TabEnum } from './types'
-import { Tabs } from './Tabs'
-import { PaymentData } from '@/types'
 import { formatNumber } from '@/lib'
+import { PaymentData } from '@/types'
+
+import { CategoriesStatistics } from './CategoriesStatistics'
+import { ChartStatistics } from './ChartStatistics'
+import { DailyStatistics } from './DailyStatistics'
+import { Tabs } from './Tabs'
+import { TabEnum } from './types'
 
 import styles from './Statistics.module.scss'
 

@@ -1,7 +1,7 @@
-import { Routes, Route, Navigate } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router'
 
-import { StatisticsWithData } from './StatisticsWithData'
 import { MainPage } from './MainPage'
+import { StatisticsWithData } from './StatisticsWithData'
 
 export const AppRoutes = () => (
   <Routes>

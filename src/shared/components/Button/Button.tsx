@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
+import clsx from 'clsx'
 
 import styles from './Button.module.scss'
-import clsx from 'clsx'
 
 type Props = PropsWithChildren<{
   className?: string

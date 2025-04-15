@@ -1,4 +1,5 @@
 import { Guide } from '@/sharedComponents/Guide'
+
 import dataExample from './dataExample.json'
 
 import styles from './FormatGuide.module.scss'

@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 
-import { DayStats, PaymentData } from '@/types'
-import { formatDate } from '@/lib'
-import { categoryMap, CategoryMapIndex } from '@/constants'
 import { DateSelector } from '@/components'
+import { categoryMap, CategoryMapIndex } from '@/constants'
+import { formatDate } from '@/lib'
+import { DayStats, PaymentData } from '@/types'
 
 import styles from './DailyStatistics.module.scss'
 

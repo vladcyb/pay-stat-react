@@ -1,7 +1,7 @@
 import { categoryMap } from '@/constants/categoryMap.ts'
+import { Guide } from '@/sharedComponents/Guide'
 
 import styles from './CategoriesGuide.module.scss'
-import { Guide } from '@/sharedComponents/Guide'
 
 export const CategoriesGuide = () => (
   <Guide

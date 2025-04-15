@@ -1,5 +1,5 @@
-import { categoryMap } from '@/constants/categoryMap.ts'
 import type { UnvalidatedData } from '@/components/FileUploader/types.ts'
+import { categoryMap } from '@/constants/categoryMap.ts'
 
 export const validateData = (
   data: UnvalidatedData

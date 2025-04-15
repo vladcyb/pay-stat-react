@@ -1,5 +1,6 @@
-import { formatNumber, useResize } from '@/lib'
 import { ChartOptions, TooltipItem } from 'chart.js'
+
+import { formatNumber, useResize } from '@/lib'
 
 export const useBarOptions = () => {
   const { screenWidth } = useResize()

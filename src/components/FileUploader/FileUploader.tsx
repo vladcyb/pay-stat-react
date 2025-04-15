@@ -1,9 +1,10 @@
+import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { useState, useCallback } from 'react'
+
+import { validateData } from '@/lib'
+import { PaymentData } from '@/types'
 
 import type { UnvalidatedData } from './types'
-import { PaymentData } from '@/types'
-import { validateData } from '@/lib'
 
 import styles from './FileUploader.module.scss'
 

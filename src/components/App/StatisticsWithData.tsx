@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router'
 
+import { Statistics } from '@/components'
 import { validateData } from '@/lib'
-import { Statistics } from '@/components/Statistics'
 import { PaymentData } from '@/types'
 
 export const StatisticsWithData = () => {

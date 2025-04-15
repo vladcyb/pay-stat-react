@@ -1,20 +1,21 @@
 import { useMemo, useState } from 'react'
-import {
-  Chart as ChartJS,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  ChartData,
-} from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  ChartData,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from 'chart.js'
 
-import { DayStats, PaymentData } from '@/types'
-import { formatDate, formatNumber } from '@/lib'
-import { categoryMap, CategoryMapIndex } from '@/constants'
 import { DateSelector } from '@/components'
+import { categoryMap, CategoryMapIndex } from '@/constants'
+import { formatDate, formatNumber } from '@/lib'
+import { DayStats, PaymentData } from '@/types'
+
 import { useBarOptions } from './useBarOptions.ts'
 
 import styles from './ChartStatistics.module.scss'

@@ -1,5 +1,5 @@
-import { PaymentData } from '@/types'
 import { categoryMap, CategoryMapIndex } from '@/constants'
+import { PaymentData } from '@/types'
 
 import styles from './CategoriesStatistics.module.scss'
 

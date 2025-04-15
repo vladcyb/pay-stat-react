@@ -1,10 +1,8 @@
 import { useState } from 'react'
 
-import { PaymentData } from '@/types/PaymentData'
-import { Statistics } from '@/components/Statistics'
-import { FileUploader } from '@/components/FileUploader/FileUploader'
-import { FormatGuide } from '@/components/FormatGuide'
+import { FileUploader, FormatGuide, Statistics } from '@/components'
 import { CategoriesGuide } from '@/components/CategoriesGuide'
+import { PaymentData } from '@/types'
 
 import styles from '@/components/App/App.module.scss'
 
