@@ -16,7 +16,7 @@ import { categoryMap, CategoryMapIndex } from '@/constants'
 import { formatDate, formatNumber } from '@/lib'
 import { DayStats, PaymentData } from '@/types'
 
-import { useBarOptions } from './useBarOptions.ts'
+import { useBarOptions } from './useBarOptions'
 
 import styles from './ChartStatistics.module.scss'
 

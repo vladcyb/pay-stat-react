@@ -1,1 +1,1 @@
-export * from './CategoriesGuide.tsx'
+export * from './CategoriesGuide'

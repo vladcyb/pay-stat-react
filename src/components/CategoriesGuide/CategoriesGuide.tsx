@@ -1,4 +1,4 @@
-import { categoryMap } from '@/constants/categoryMap.ts'
+import { categoryMap } from '@/constants/categoryMap'
 import { Guide } from '@/sharedComponents/Guide'
 
 import styles from './CategoriesGuide.module.scss'
