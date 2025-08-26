@@ -59,7 +59,7 @@ export const categoryMap: Record<CategoryMapIndex, ValueType> = {
     color: '#3366E6',
   },
   '8': {
-    name: 'Образование',
+    name: 'Саморазвитие',
     color: '#999966',
   },
   '9': {
