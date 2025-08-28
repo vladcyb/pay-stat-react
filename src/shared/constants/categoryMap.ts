@@ -36,7 +36,7 @@ export const categoryMap: Record<CategoryMapIndex, ValueType> = {
     color: '#FF6633',
   },
   '2': {
-    name: 'Фастфуд',
+    name: 'Фастфуд/готовая еда',
     color: '#FFB399',
   },
   '3': {
