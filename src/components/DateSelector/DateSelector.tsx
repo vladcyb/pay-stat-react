@@ -33,7 +33,7 @@ export const DateSelector = ({
           type="text"
           value={regexFilter}
           onChange={(e) => setRegexFilter(e.target.value)}
-          placeholder="Фильтр по дате (регулярное выражение)"
+          placeholder="Фильтр по дате (регулярное выражение, ДД.ММ.ГГГГ)"
           autoComplete="off"
           autoCorrect="off"
           spellCheck="false"
